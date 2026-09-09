@@ -6,3 +6,6 @@ Learning python
 Interested in cloud computing
 
 contribute to open source
+
+## Projects
+Built a simple Python calculator app as coursework practice.
