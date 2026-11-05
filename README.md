@@ -1,11 +1,32 @@
-# READ-ME-
-Hi, I'm [Ashwin K], a student studying [Computer Science Engineering] at [Reva University]. This repository is where I'm building and tracking my engineering portfolio as part of my GitHub Fundamentals coursework.
+# Marshall AI – ESP32 Voice Console v4.0
 
-Learning python
+## 1. Put your text data in `knowledge/`
+Any `.txt` / `.md` files there become Marshall's reference text (about 60k characters total).
 
-Interested in cloud computing
+## 2. Docker
+    export ANTHROPIC_API_KEY=sk-ant-...
+    docker compose up --build
+    # open http://localhost:8080
 
-contribute to open source
+## 3. Kubernetes (minikube / kind / any cluster)
+    docker build -t marshall-ai:4.0 .
+    minikube image load marshall-ai:4.0      # or: kind load docker-image marshall-ai:4.0
 
-## Projects
-Built a simple Python calculator app as coursework practice.
+    kubectl apply -f k8s/marshall.yaml       # namespace, volume, deployment, service
+    kubectl -n marshall create secret generic marshall-secrets --from-literal=ANTHROPIC_API_KEY=sk-ant-...
+    kubectl -n marshall create configmap marshall-knowledge --from-file=knowledge/
+    kubectl -n marshall rollout restart deploy/marshall
+
+    kubectl -n marshall port-forward svc/marshall 8080:80
+    # open http://localhost:8080
+
+### Updating your text data later
+    kubectl -n marshall create configmap marshall-knowledge --from-file=knowledge/ --dry-run=client -o yaml | kubectl apply -f -
+(Files update inside the pod within about a minute; no rebuild needed. ConfigMaps are limited to 1 MiB.)
+
+### Saved chat logs
+Stored at `/data/chat_log.jsonl` on the persistent volume:
+    kubectl -n marshall exec deploy/marshall -- cat /data/chat_log.jsonl
+
+## ESP32
+POST JSON to `http://<host>/api/chat`:  `{"message":"hello","source":"esp32"}`  ->  `{"reply":"..."}`
