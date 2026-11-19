@@ -354,3 +354,43 @@ input:valid:not(:placeholder-shown) {
 .reset-btn:hover {
   background-color: var(--primary-light);
 }
+
+/* ==========================================================
+   12. ACTIVITY 5 - toast notifications
+   ========================================================== */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2000;
+}
+
+.toast {
+  min-width: 260px;
+  max-width: 340px;
+  padding: 14px 18px;
+  background-color: var(--primary);
+  color: var(--text-light);
+  border-left: 6px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast.error {
+  border-left-color: #d93025;
+}
+
+.toast.info {
+  border-left-color: #4a90e2;
+}
