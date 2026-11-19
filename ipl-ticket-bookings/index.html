@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPL 2026 Ticket Booking</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <nav>
+      <h1>IPL Tickets</h1>
+      <ul>
+        <li><a href="#matches">Matches</a></li>
+        <li><a href="#book-ticket">Book Ticket</a></li>
+        <li><a href="#my-bookings">My Bookings</a></li>
+        <li><a href="#guidelines">Guidelines</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- Banner (Hero) Section -->
+    <section id="hero">
+      <h2>Experience The Stadium Energy Live!<S/h2>
+      <a href="#matches"><button type="button">View Schedule</button></a>
+      <a href="#book-ticket"><button type="button">Book Ticket</button></a>
+    </section>
+
+    <!-- About IPL 2026 -->
+    <section id="about">
+      <h2>About IPL 2026</h2>
+      <p>The Indian Premier League brings together the best cricketers and the most passionate fans for an unforgettable season.</p>
+
+      <h3>Popular Teams</h3>
+      <ul>
+        <li>Chennai Super Kings (CSK)</li>
+        <li>Mumbai Indians (MI)</li>
+        <li>Royal Challengers Bengaluru (RCB)</li>
+        <li>Kolkata Knight Riders (KKR)</li>
+        <li>Sunrisers Hyderabad (SRH)</li>
+      </ul>
+
+      <h3>Major Match Venues</h3>
+      <ul>
+        <li>M. A. Chidambaram Stadium, Chennai</li>
+        <li>Wankhede Stadium, Mumbai</li>
+        <li>M. Chinnaswamy Stadium, Bengaluru</li>
+        <li>Eden Gardens, Kolkata</li>
+        <li>Narendra Modi Stadium, Ahmedabad</li>
+      </ul>
+    </section>
+
+    <!-- Match Schedule -->
+    <section id="matches">
+      <h2>Match Schedule</h2>
+
+      <!-- Team Filter -->
+      <form>
+        <label for="team-filter">Filter by Team:</label>
+        <select id="team-filter" name="team-filter">
+          <option value="all">All Teams</option>
+          <option value="CSK">CSK</option>
+          <option value="MI">MI</option>
+          <option value="RCB">RCB</option>
+          <option value="KKR">KKR</option>
+          <option value="SRH">SRH</option>
+        </select>
+      </form>
+
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Match No.</th>
+            <th>Teams</th>
+            <th>Date &amp; Time</th>
+            <th>Venue</th>
+            <th>General (₹)</th>
+            <th>Premium (₹)</th>
+            <th>VIP (₹)</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>CSK vs MI</td>
+            <td>28 March 2026, 7:30 PM</td>
+            <td>M. A. Chidambaram Stadium, Chennai</td>
+            <td>1,500</td>
+            <td>3,500</td>
+            <td>7,500</td>
+            <td><a href="#book-ticket"><button type="button">Book</button></a></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>RCB vs KKR</td>
+            <td>30 March 2026, 7:30 PM</td>
+            <td>M. Chinnaswamy Stadium, Bengaluru</td>
+            <td>1,800</td>
+            <td>4,000</td>
+            <td>8,000</td>
+            <td><a href="#book-ticket"><button type="button">Book</button></a></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>SRH vs CSK</td>
+            <td>2 April 2026, 3:30 PM</td>
+            <td>Rajiv Gandhi Stadium, Hyderabad</td>
+            <td>1,200</td>
+            <td>3,000</td>
+            <td>6,500</td>
+            <td><a href="#book-ticket"><button type="button">Book</button></a></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>MI vs RCB</td>
+            <td>5 April 2026, 7:30 PM</td>
+            <td>Wankhede Stadium, Mumbai</td>
+            <td>2,000</td>
+            <td>4,500</td>
+            <td>9,000</td>
+            <td><a href="#book-ticket"><button type="button">Book</button></a></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>KKR vs SRH</td>
+            <td>8 April 2026, 7:30 PM</td>
+            <td>Eden Gardens, Kolkata</td>
+            <td>1,400</td>
+            <td>3,200</td>
+            <td>7,000</td>
+            <td><a href="#book-ticket"><button type="button">Book</button></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Ticket Booking Form + Booking Summary Card -->
+    <section id="book-ticket">
+      <h2>Book Your Ticket</h2>
+
+      <div>
+        <form action="#" method="post">
+          <p>
+            <label for="match">Match</label><br>
+            <select id="match" name="match" required>
+              <option value="">Select a match</option>
+              <option value="1">1 - CSK vs MI</option>
+              <option value="2">2 - RCB vs KKR</option>
+              <option value="3">3 - SRH vs CSK</option>
+              <option value="4">4 - MI vs RCB</option>
+              <option value="5">5 - KKR vs SRH</option>
+            </select>
+          </p>
+
+          <p>
+            <label for="stand">Stand Category</label><br>
+            <select id="stand" name="stand" required>
+              <option value="">Select a stand</option>
+              <option value="general">General</option>
+              <option value="premium">Premium</option>
+              <option value="vip">VIP</option>
+            </select>
+          </p>
+
+          <p>
+            <label for="tickets">Number of Tickets</label><br>
+            <input type="number" id="tickets" name="tickets" min="1" max="10" value="1" required>
+          </p>
+
+          <p>
+            <label for="name">Name</label><br>
+            <input type="text" id="name" name="name" placeholder="Your full name" required>
+          </p>
+
+          <p>
+            <label for="email">Email</label><br>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          </p>
+
+          <p>
+            <label for="phone">Phone Number</label><br>
+            <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+          </p>
+
+          <button type="submit">Confirm Booking</button>
+        </form>
+
+        <!-- Booking Summary Card -->
+        <aside id="booking-summary">
+          <h3>Booking Summary</h3>
+          <p><strong>Match:</strong> <span id="summary-match">Not selected</span></p>
+          <p><strong>Stand:</strong> <span id="summary-stand">Not selected</span></p>
+          <p><strong>Ticket Price:</strong> ₹<span id="summary-price">0</span></p>
+          <p><strong>Quantity:</strong> <span id="summary-qty">0</span></p>
+          <p><strong>Total Amount:</strong> ₹<span id="summary-total">0</span></p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- My Ticket Bookings -->
+    <section id="my-bookings">
+      <h2>My Ticket Bookings</h2>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Match</th>
+            <th>Stand</th>
+            <th>Tickets</th>
+            <th>Total Amount (₹)</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Booking records will be added here later -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Guidelines -->
+    <section id="guidelines">
+      <h2>Guidelines</h2>
+
+      <article>
+        <h3>Ticket Verification</h3>
+        <p>Show your e-ticket QR code at the gate. Each QR code can be scanned only once.</p>
+      </article>
+
+      <article>
+        <h3>ID Proof Requirement</h3>
+        <p>Carry a valid government-issued photo ID matching the name on the booking.</p>
+      </article>
+
+      <article>
+        <h3>Prohibited Items</h3>
+        <p>Outside food, glass bottles, sharp objects, banners with offensive content, and large bags are not allowed.</p>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 IPL Ticket Booking. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
