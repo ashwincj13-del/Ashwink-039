@@ -295,3 +295,62 @@ footer {
   #book-ticket > div { grid-template-columns: 1fr; }
   main > section { scroll-margin-top: 130px; }
 }
+
+/* ==========================================================
+   11. ACTIVITY 3 - booking.html extras
+   ========================================================== */
+#book-ticket.single form {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+}
+
+legend {
+  font-weight: 600;
+  color: var(--primary);
+  padding: 0 6px;
+}
+
+fieldset label {
+  display: block;
+  font-weight: normal;
+  color: var(--text);
+  margin: 6px 0;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  width: auto;
+  margin: 0 8px 0 0;
+  accent-color: var(--primary);
+}
+
+/* red border when the user typed something invalid */
+input:invalid:not(:placeholder-shown),
+select:invalid:focus {
+  border-color: #d93025;
+}
+
+input:valid:not(:placeholder-shown) {
+  border-color: #1e9e4a;
+}
+
+#book-ticket.single form button {
+  margin-top: 14px;
+}
+
+.reset-btn {
+  background-color: var(--primary);
+  color: var(--text-light);
+  margin-left: 10px;
+}
+
+.reset-btn:hover {
+  background-color: var(--primary-light);
+}
