@@ -1,7 +1,8 @@
 /* ==========================================================
    IPL 2026 Ticket Booking - app.js
    Activity 5: toast + smooth scrolling
-   Activity 7: live Booking Summary using selectors
+   Activity 7: live Booking Summary
+   Activity 8: team filter, grid/list toggle, hamburger menu
    ========================================================== */
 
 /* ---------- 1. Reusable toast notification ---------- */
@@ -64,9 +65,10 @@ function formatPrice(amount) {
 
 /* ---------- 4. Update the Booking Summary card ---------- */
 function updateSummary(showMessage) {
-  // read the selected match (its data-* attributes hold the prices)
+  if (!summaryMatch) return;   // this page has no summary card
+
   const matchOption = matchSelect.options[matchSelect.selectedIndex];
-  const standValue = standSelect.value;                    // general / premium / vip
+  const standValue = standSelect.value;
   const standLabel = standSelect.options[standSelect.selectedIndex].text;
   const quantity = parseInt(ticketsInput.value, 10);
 
@@ -74,25 +76,19 @@ function updateSummary(showMessage) {
   const hasStand = standValue !== "";
   const validQty = !isNaN(quantity) && quantity >= 1 && quantity <= 10;
 
-  // match name
   summaryMatch.textContent = hasMatch ? matchOption.dataset.teams : "Not selected";
-
-  // stand name
   summaryStand.textContent = hasStand ? standLabel : "Not selected";
 
-  // price per ticket (depends on both match and stand)
   let price = 0;
   if (hasMatch && hasStand) {
     price = parseInt(matchOption.dataset[standValue], 10);
   }
   summaryPrice.textContent = formatPrice(price);
 
-  // quantity and total
   const qty = validQty ? quantity : 0;
   summaryQty.textContent = qty;
   summaryTotal.textContent = formatPrice(price * qty);
 
-  // toast confirmation
   if (showMessage) {
     if (hasMatch && hasStand && validQty) {
       showToast(
@@ -108,7 +104,7 @@ function updateSummary(showMessage) {
   }
 }
 
-/* ---------- 5. Change event listeners ---------- */
+/* ---------- 5. Change event listeners for the summary ---------- */
 function setupSummaryListeners() {
   if (!matchSelect || !standSelect || !ticketsInput) return;
 
@@ -117,15 +113,14 @@ function setupSummaryListeners() {
   ticketsInput.addEventListener("change", function () { updateSummary(true); });
 }
 
-/* ---------- 6. Book buttons in the match schedule ---------- */
+/* ---------- 6. Book buttons on the match cards ---------- */
 function setupBookButtons() {
   const bookButtons = document.querySelectorAll(".book-btn");
 
   bookButtons.forEach(function (button) {
     button.addEventListener("click", function () {
-      const teams = button.closest("tr").children[1].textContent;
+      const teams = button.closest(".match-card").querySelector("h3").textContent;
 
-      // pre-select the match, then refresh the summary (toast is shown below)
       matchSelect.value = button.dataset.match;
       updateSummary(false);
 
@@ -143,15 +138,88 @@ function setupBookingForm() {
     event.preventDefault();
     showToast("Booking confirmed! Check your email for the e-ticket.");
     form.reset();
-    updateSummary(false);   // clear the summary card too
+    updateSummary(false);
   });
 }
 
-/* ---------- 8. Start everything when the page loads ---------- */
+/* ---------- 8. Filter match cards by team ---------- */
+function setupMatchFilter() {
+  const filter = document.getElementById("team-filter");
+  const cards = document.querySelectorAll(".match-card");
+  const noMatches = document.getElementById("no-matches");
+  if (!filter) return;
+
+  filter.addEventListener("change", function () {
+    let visible = 0;
+
+    cards.forEach(function (card) {
+      const teams = card.dataset.teams.split(" ");       // e.g. ["CSK", "MI"]
+      const show = filter.value === "all" || teams.includes(filter.value);
+
+      card.classList.toggle("hidden", !show);
+      if (show) visible++;
+    });
+
+    noMatches.classList.toggle("hidden", visible !== 0);
+
+    if (filter.value === "all") {
+      showToast("Showing all " + visible + " matches.", "info", 1500);
+    } else {
+      showToast("Showing " + visible + " match(es) for " + filter.value + ".", "info", 1500);
+    }
+  });
+}
+
+/* ---------- 9. Toggle between grid view and list view ---------- */
+function setupViewToggle() {
+  const matchList = document.getElementById("match-list");
+  const viewButtons = document.querySelectorAll(".view-btn");
+  if (!matchList) return;
+
+  viewButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      // add or remove the "list-view" class on the card container
+      matchList.classList.toggle("list-view", button.dataset.view === "list");
+
+      viewButtons.forEach(function (b) {
+        b.classList.toggle("active", b === button);
+      });
+    });
+  });
+}
+
+/* ---------- 10. Hamburger menu (toggle a class on the nav links) ---------- */
+function setupHamburgerMenu() {
+  const toggle = document.getElementById("menu-toggle");
+  const links = document.getElementById("nav-links");
+  if (!toggle || !links) return;
+
+  function setMenu(open) {
+    links.classList.toggle("open", open);
+    toggle.setAttribute("aria-expanded", open);
+    toggle.innerHTML = open ? "&#10005;" : "&#9776;";   // X when open, bars when closed
+  }
+
+  toggle.addEventListener("click", function () {
+    setMenu(!links.classList.contains("open"));
+  });
+
+  // close the menu after choosing a link
+  links.querySelectorAll("a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      setMenu(false);
+    });
+  });
+}
+
+/* ---------- 11. Start everything when the page loads ---------- */
 document.addEventListener("DOMContentLoaded", function () {
   enableSmoothScrolling();
   setupSummaryListeners();
   setupBookButtons();
   setupBookingForm();
-  updateSummary(false);     // show starting values
+  setupMatchFilter();
+  setupViewToggle();
+  setupHamburgerMenu();
+  updateSummary(false);
 });

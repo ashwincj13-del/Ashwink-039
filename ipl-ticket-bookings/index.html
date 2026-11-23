@@ -12,7 +12,8 @@
   <header>
     <nav>
       <h1>IPL Tickets</h1>
-      <ul>
+      <button type="button" id="menu-toggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+      <ul id="nav-links">
         <li><a href="#matches">Matches</a></li>
         <li><a href="#book-ticket">Book Ticket</a></li>
         <li><a href="#my-bookings">My Bookings</a></li>
@@ -54,89 +55,99 @@
       </ul>
     </section>
 
-    <!-- Match Schedule -->
+    <!-- Match Schedule (cards) -->
     <section id="matches">
       <h2>Match Schedule</h2>
 
-      <!-- Team Filter -->
-      <form>
-        <label for="team-filter">Filter by Team:</label>
-        <select id="team-filter" name="team-filter">
-          <option value="all">All Teams</option>
-          <option value="CSK">CSK</option>
-          <option value="MI">MI</option>
-          <option value="RCB">RCB</option>
-          <option value="KKR">KKR</option>
-          <option value="SRH">SRH</option>
-        </select>
-      </form>
+      <!-- Toolbar: team filter + grid/list toggle -->
+      <div class="match-toolbar">
+        <form>
+          <label for="team-filter">Filter by Team:</label>
+          <select id="team-filter" name="team-filter">
+            <option value="all">All Teams</option>
+            <option value="CSK">CSK</option>
+            <option value="MI">MI</option>
+            <option value="RCB">RCB</option>
+            <option value="KKR">KKR</option>
+            <option value="SRH">SRH</option>
+          </select>
+        </form>
 
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Match No.</th>
-            <th>Teams</th>
-            <th>Date &amp; Time</th>
-            <th>Venue</th>
-            <th>General (₹)</th>
-            <th>Premium (₹)</th>
-            <th>VIP (₹)</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>CSK vs MI</td>
-            <td>28 March 2026, 7:30 PM</td>
-            <td>M. A. Chidambaram Stadium, Chennai</td>
-            <td>1,500</td>
-            <td>3,500</td>
-            <td>7,500</td>
-            <td><a href="#book-ticket"><button type="button" class="book-btn" data-match="1">Book</button></a></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>RCB vs KKR</td>
-            <td>30 March 2026, 7:30 PM</td>
-            <td>M. Chinnaswamy Stadium, Bengaluru</td>
-            <td>1,800</td>
-            <td>4,000</td>
-            <td>8,000</td>
-            <td><a href="#book-ticket"><button type="button" class="book-btn" data-match="2">Book</button></a></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>SRH vs CSK</td>
-            <td>2 April 2026, 3:30 PM</td>
-            <td>Rajiv Gandhi Stadium, Hyderabad</td>
-            <td>1,200</td>
-            <td>3,000</td>
-            <td>6,500</td>
-            <td><a href="#book-ticket"><button type="button" class="book-btn" data-match="3">Book</button></a></td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>MI vs RCB</td>
-            <td>5 April 2026, 7:30 PM</td>
-            <td>Wankhede Stadium, Mumbai</td>
-            <td>2,000</td>
-            <td>4,500</td>
-            <td>9,000</td>
-            <td><a href="#book-ticket"><button type="button" class="book-btn" data-match="4">Book</button></a></td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>KKR vs SRH</td>
-            <td>8 April 2026, 7:30 PM</td>
-            <td>Eden Gardens, Kolkata</td>
-            <td>1,400</td>
-            <td>3,200</td>
-            <td>7,000</td>
-            <td><a href="#book-ticket"><button type="button" class="book-btn" data-match="5">Book</button></a></td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="view-toggle">
+          <button type="button" class="view-btn active" data-view="grid">Grid View</button>
+          <button type="button" class="view-btn" data-view="list">List View</button>
+        </div>
+      </div>
+
+      <!-- Match cards (CSS Grid) -->
+      <div id="match-list" class="match-grid">
+        <div class="match-card" data-teams="CSK MI">
+          <span class="match-no">Match 1</span>
+          <h3>CSK vs MI</h3>
+          <p class="match-date">28 March 2026, 7:30 PM</p>
+          <p class="match-venue">M. A. Chidambaram Stadium, Chennai</p>
+          <div class="prices">
+            <span>General<strong>&#8377;1,500</strong></span>
+            <span>Premium<strong>&#8377;3,500</strong></span>
+            <span>VIP<strong>&#8377;7,500</strong></span>
+          </div>
+          <a href="#book-ticket"><button type="button" class="book-btn" data-match="1">Book</button></a>
+        </div>
+
+        <div class="match-card" data-teams="RCB KKR">
+          <span class="match-no">Match 2</span>
+          <h3>RCB vs KKR</h3>
+          <p class="match-date">30 March 2026, 7:30 PM</p>
+          <p class="match-venue">M. Chinnaswamy Stadium, Bengaluru</p>
+          <div class="prices">
+            <span>General<strong>&#8377;1,800</strong></span>
+            <span>Premium<strong>&#8377;4,000</strong></span>
+            <span>VIP<strong>&#8377;8,000</strong></span>
+          </div>
+          <a href="#book-ticket"><button type="button" class="book-btn" data-match="2">Book</button></a>
+        </div>
+
+        <div class="match-card" data-teams="SRH CSK">
+          <span class="match-no">Match 3</span>
+          <h3>SRH vs CSK</h3>
+          <p class="match-date">2 April 2026, 3:30 PM</p>
+          <p class="match-venue">Rajiv Gandhi Stadium, Hyderabad</p>
+          <div class="prices">
+            <span>General<strong>&#8377;1,200</strong></span>
+            <span>Premium<strong>&#8377;3,000</strong></span>
+            <span>VIP<strong>&#8377;6,500</strong></span>
+          </div>
+          <a href="#book-ticket"><button type="button" class="book-btn" data-match="3">Book</button></a>
+        </div>
+
+        <div class="match-card" data-teams="MI RCB">
+          <span class="match-no">Match 4</span>
+          <h3>MI vs RCB</h3>
+          <p class="match-date">5 April 2026, 7:30 PM</p>
+          <p class="match-venue">Wankhede Stadium, Mumbai</p>
+          <div class="prices">
+            <span>General<strong>&#8377;2,000</strong></span>
+            <span>Premium<strong>&#8377;4,500</strong></span>
+            <span>VIP<strong>&#8377;9,000</strong></span>
+          </div>
+          <a href="#book-ticket"><button type="button" class="book-btn" data-match="4">Book</button></a>
+        </div>
+
+        <div class="match-card" data-teams="KKR SRH">
+          <span class="match-no">Match 5</span>
+          <h3>KKR vs SRH</h3>
+          <p class="match-date">8 April 2026, 7:30 PM</p>
+          <p class="match-venue">Eden Gardens, Kolkata</p>
+          <div class="prices">
+            <span>General<strong>&#8377;1,400</strong></span>
+            <span>Premium<strong>&#8377;3,200</strong></span>
+            <span>VIP<strong>&#8377;7,000</strong></span>
+          </div>
+          <a href="#book-ticket"><button type="button" class="book-btn" data-match="5">Book</button></a>
+        </div>
+      </div>
+
+      <p id="no-matches" class="hidden">No matches found for this team.</p>
     </section>
 
     <!-- Ticket Booking Form + Booking Summary Card -->

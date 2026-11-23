@@ -25,10 +25,6 @@
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   background-color: var(--background);
@@ -180,9 +176,6 @@ td button {
   box-shadow: none;
 }
 
-#matches {
-  overflow-x: auto;
-}
 
 /* 7. FORMS */
 label {
@@ -263,7 +256,7 @@ article {
 
 #guidelines {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
@@ -280,28 +273,6 @@ article:hover {
   transform: translateY(-6px);
 }
 
-.toast {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 1100;
-  max-width: min(360px, calc(100vw - 32px));
-  padding: 12px 18px;
-  border-radius: var(--radius);
-  background-color: var(--primary);
-  color: var(--text-light);
-  box-shadow: var(--shadow);
-  opacity: 0;
-  transform: translateY(10px);
-  pointer-events: none;
-  transition: opacity 0.2s, transform 0.2s;
-}
-
-.toast.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 /* 9. FOOTER */
 footer {
   background-color: var(--primary);
@@ -312,16 +283,351 @@ footer {
   border-top: 4px solid var(--accent);
 }
 
-/* 10. RESPONSIVE */
-@media (max-width: 800px) {
-  body { padding-top: 110px; }
-  nav { flex-direction: column; height: auto; padding: 10px; }
-  nav ul { flex-wrap: wrap; justify-content: center; }
-  #hero h2 { font-size: 2rem; }
-  #book-ticket > div { grid-template-columns: 1fr; }
-  main > section { scroll-margin-top: 130px; }
+
+/* ==========================================================
+   11. ACTIVITY 3 - booking.html extras
+   ========================================================== */
+#book-ticket.single form {
+  max-width: 650px;
+  margin: 0 auto;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .toast { transition: none; }
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+}
+
+legend {
+  font-weight: 600;
+  color: var(--primary);
+  padding: 0 6px;
+}
+
+fieldset label {
+  display: block;
+  font-weight: normal;
+  color: var(--text);
+  margin: 6px 0;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  width: auto;
+  margin: 0 8px 0 0;
+  accent-color: var(--primary);
+}
+
+/* red border when the user typed something invalid */
+input:invalid:not(:placeholder-shown),
+select:invalid:focus {
+  border-color: #d93025;
+}
+
+input:valid:not(:placeholder-shown) {
+  border-color: #1e9e4a;
+}
+
+#book-ticket.single form button {
+  margin-top: 14px;
+}
+
+.reset-btn {
+  background-color: var(--primary);
+  color: var(--text-light);
+  margin-left: 10px;
+}
+
+.reset-btn:hover {
+  background-color: var(--primary-light);
+}
+
+/* ==========================================================
+   12. ACTIVITY 5 - toast notifications
+   ========================================================== */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2000;
+}
+
+.toast {
+  min-width: 260px;
+  max-width: 340px;
+  padding: 14px 18px;
+  background-color: var(--primary);
+  color: var(--text-light);
+  border-left: 6px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast.error {
+  border-left-color: #d93025;
+}
+
+.toast.info {
+  border-left-color: #4a90e2;
+}
+
+/* ==========================================================
+   13. ACTIVITY 8 - responsive layout (Flexbox + Grid)
+   ========================================================== */
+
+/* helper used by JavaScript to hide things */
+.hidden {
+  display: none !important;
+}
+
+/* hamburger button (hidden on desktop) */
+.menu-toggle {
+  display: none;
+  background: none;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  padding: 2px 12px;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  box-shadow: none;
+}
+
+.menu-toggle:hover {
+  background-color: var(--accent);
+  color: var(--primary);
+  transform: none;
+}
+
+/* toolbar above the match cards (Flexbox) */
+.match-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.view-btn {
+  background-color: var(--surface);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 8px 16px;
+  box-shadow: none;
+}
+
+.view-btn:hover {
+  background-color: var(--primary-light);
+  color: var(--text-light);
+}
+
+.view-btn.active {
+  background-color: var(--primary);
+  color: var(--accent);
+}
+
+/* match cards (CSS Grid) */
+#match-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.match-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 5px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s;
+}
+
+.match-card:hover {
+  transform: translateY(-4px);
+}
+
+.match-no {
+  display: inline-block;
+  background-color: var(--primary);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+
+.match-card h3 {
+  margin-bottom: 4px;
+}
+
+.match-date {
+  font-weight: 600;
+}
+
+.match-venue {
+  color: #555;
+}
+
+.prices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 12px 0 16px;
+}
+
+.prices span {
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f3fa;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.prices strong {
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+.match-card a {
+  text-decoration: none;
+}
+
+/* list view: one card per row, details side by side (Flexbox) */
+#match-list.list-view {
+  grid-template-columns: 1fr;
+}
+
+#match-list.list-view .match-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 28px;
+}
+
+#match-list.list-view .match-card h3,
+#match-list.list-view .match-card p,
+#match-list.list-view .match-card .prices {
+  margin: 0;
+}
+
+#no-matches {
+  text-align: center;
+  padding: 30px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* ---------- Tablets and phones: single column + hamburger ---------- */
+@media (max-width: 900px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  /* navigation links collapse into a dropdown panel */
+  .menu-toggle + ul {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    padding: 10px 20px 16px;
+    background-color: var(--primary);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow);
+  }
+
+  .menu-toggle + ul.open {
+    display: flex;
+  }
+
+  .menu-toggle + ul a {
+    padding: 12px;
+  }
+
+  /* everything stacks into one column */
+  #match-list,
+  #guidelines,
+  #book-ticket > div {
+    grid-template-columns: 1fr;
+  }
+
+  #booking-summary {
+    position: static;
+  }
+
+  #hero h2 {
+    font-size: 2rem;
+  }
+
+  #match-list.list-view .match-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #my-bookings {
+    overflow-x: auto;
+  }
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 600px) {
+  main > section {
+    padding: 0 14px;
+    margin: 28px auto;
+  }
+
+  main > section#hero {
+    padding: 70px 14px;
+  }
+
+  #hero h2 {
+    font-size: 1.6rem;
+  }
+
+  nav {
+    padding: 0 14px;
+  }
+
+  nav h1 {
+    font-size: 1.25rem;
+  }
+
+  .match-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #toast-container {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .toast {
+    min-width: 0;
+    max-width: none;
+  }
 }
