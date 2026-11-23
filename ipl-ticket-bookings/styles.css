@@ -25,6 +25,10 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   background-color: var(--background);
@@ -276,6 +280,28 @@ article:hover {
   transform: translateY(-6px);
 }
 
+.toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1100;
+  max-width: min(360px, calc(100vw - 32px));
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  background-color: var(--primary);
+  color: var(--text-light);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* 9. FOOTER */
 footer {
   background-color: var(--primary);
@@ -296,101 +322,6 @@ footer {
   main > section { scroll-margin-top: 130px; }
 }
 
-/* ==========================================================
-   11. ACTIVITY 3 - booking.html extras
-   ========================================================== */
-#book-ticket.single form {
-  max-width: 650px;
-  margin: 0 auto;
-}
-
-fieldset {
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px 16px;
-  margin-bottom: 14px;
-}
-
-legend {
-  font-weight: 600;
-  color: var(--primary);
-  padding: 0 6px;
-}
-
-fieldset label {
-  display: block;
-  font-weight: normal;
-  color: var(--text);
-  margin: 6px 0;
-}
-
-input[type="radio"],
-input[type="checkbox"] {
-  width: auto;
-  margin: 0 8px 0 0;
-  accent-color: var(--primary);
-}
-
-/* red border when the user typed something invalid */
-input:invalid:not(:placeholder-shown),
-select:invalid:focus {
-  border-color: #d93025;
-}
-
-input:valid:not(:placeholder-shown) {
-  border-color: #1e9e4a;
-}
-
-#book-ticket.single form button {
-  margin-top: 14px;
-}
-
-.reset-btn {
-  background-color: var(--primary);
-  color: var(--text-light);
-  margin-left: 10px;
-}
-
-.reset-btn:hover {
-  background-color: var(--primary-light);
-}
-
-/* ==========================================================
-   12. ACTIVITY 5 - toast notifications
-   ========================================================== */
-#toast-container {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 2000;
-}
-
-.toast {
-  min-width: 260px;
-  max-width: 340px;
-  padding: 14px 18px;
-  background-color: var(--primary);
-  color: var(--text-light);
-  border-left: 6px solid var(--accent);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  opacity: 0;
-  transform: translateX(40px);
-  transition: opacity 0.4s, transform 0.4s;
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.toast.error {
-  border-left-color: #d93025;
-}
-
-.toast.info {
-  border-left-color: #4a90e2;
+@media (prefers-reduced-motion: reduce) {
+  .toast { transition: none; }
 }
